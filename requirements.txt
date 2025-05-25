@@ -1,0 +1,3 @@
+requests==2.31.0 # HTTP library for Python, API calls
+pandas==2.0.3 # Data manipulation and analysis
+pytest==7.4.0 # Testing framework

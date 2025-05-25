@@ -1,3 +1,5 @@
-requests==2.31.0 # HTTP library for Python, API calls
-pandas==2.0.3 # Data manipulation and analysis
-pytest==7.4.0 # Testing framework
+requests==2.31.0
+pandas==2.1.0
+numpy==1.25.2  # Newer stable version
+pytest==7.4.0
+python-dotenv==1.0.0

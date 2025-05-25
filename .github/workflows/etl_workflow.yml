@@ -2,8 +2,8 @@ name: Daily ETL Pipeline
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs at midnight UTC every day
-  workflow_dispatch:  # Allow manual triggering
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
   run-etl:
@@ -21,17 +21,23 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install --force-reinstall -r requirements.txt
+        pip check
         
+    - name: Verify installation
+      run: |
+        python -c "import numpy; print(f'numpy: {numpy.__version__}')"
+        python -c "import pandas; print(f'pandas: {pandas.__version__}')"
+
     - name: Run Tests
       run: |
         python -m pytest Tests/ -v
-        
-    - name: Run ETL pipeline
+
+    - name: Run ETL
       run: |
         python -c "from extract import fetch_data; from transform import transform_data; from load import save_to_csv; data = fetch_data('https://jsonplaceholder.typicode.com/posts'); transformed = transform_data(data); save_to_csv(transformed)"
         
-    - name: Upload output CSV
+    - name: Upload output
       uses: actions/upload-artifact@v4
       with:
         name: etl-output

@@ -32,7 +32,7 @@ jobs:
         python -c "from extract import fetch_data; from transform import transform_data; from load import save_to_csv; data = fetch_data('https://jsonplaceholder.typicode.com/posts'); transformed = transform_data(data); save_to_csv(transformed)"
         
     - name: Upload output CSV
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: etl-output
         path: output_*.csv
